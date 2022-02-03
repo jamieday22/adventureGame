@@ -7,10 +7,9 @@ public class Decision {
     ArrayList<String> choices = new ArrayList<String>();
     String selection;
 
-    public Decision() {
+    public Decision(){
 
     }
-
     public void add(String newDecision){
         choices.add(newDecision);
     }
