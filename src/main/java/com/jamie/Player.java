@@ -4,6 +4,8 @@ import java.awt.*;
 
 public class Player {
 
+    int health = 22;
+
     Location location;
 
     public void setLocation(Location location) {
@@ -14,14 +16,15 @@ public class Player {
         return this.location;
     }
 
-    public void moveNorth() {
+
+
 
 
 
     }
 
 
-    }
+
 
 
 

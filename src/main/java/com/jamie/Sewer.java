@@ -3,39 +3,9 @@ import java.util.Scanner;
 
 public class Sewer {
 
-    Location[][] mySewer = new Location[3][3];
+    Location[][] mySewer = new Location[2][2]; // size
     Player player;
     Location startingLocation;
-
-
-    public Sewer () {
-
-
-
-        Location location00 = new Location();
-        int[] coordinates00 = {0,0};
-        Decision decision00 = new Decision();
-        decision00.add(String.valueOf(Direction.South));
-        decision00.add(String.valueOf(Direction.East));
-        location00.setCoordinates(coordinates00);
-        location00.setDecision(decision00);
-        location00.setText("This is your first room ");
-        this.addLocation(location00);
-
-        Location location01 = new Location();
-        int[] coordinates01 = {0,0};
-        Decision decision01 = new Decision();
-        decision01.add(String.valueOf(Direction.South));
-        decision01.add(String.valueOf(Direction.East));
-        location01.setCoordinates(coordinates01);
-        location01.setDecision(decision01);
-        location01.setText("This is your second room ");
-        this.addLocation(location00);
-
-
-
-        this.startingLocation = location00;
-    }
 
 
 
@@ -49,46 +19,127 @@ public class Sewer {
         mySewer[coordinates[0]][coordinates[1]] = location;
     }
 
+    Scanner input = new Scanner(System.in);
 
-    @SuppressWarnings("InfiniteLoopStatement")
+    public String readLine(String prompt){
+        System.out.print(prompt);
+        return input.nextLine();
+    }
+
+
     public void loop() {
 
-
-
         while (true) {
+
 
             Location location = player.getLocation();
 
             Decision decision = location.getDecision();
 
-
             System.out.println(location.getText());
 
-            Scanner inputRead = new Scanner(System.in);
-            switch ((inputRead.next())+ decision.getSelection()) {
+
+         String next = readLine("You only have " + decision + " to move make a choice");
+            decision.select(next);
+
+            switch (decision.getSelection()) {
                 case "North" -> {
+                    System.out.println("moving on");
                     int[] coordinates = location.getCoordinates();
                     player.setLocation(mySewer[coordinates[0]][coordinates[1] + 1]);
-                    break;
                 }
 
                 case "South" -> {
+                    System.out.println("South");
                     int[] coordinates = location.getCoordinates();
                     player.setLocation(mySewer[coordinates[0]][coordinates[1] - 1]);
-                    break;
+
                 }
                 case "East" -> {
                     int[] coordinates = location.getCoordinates();
                     player.setLocation(mySewer[coordinates[0] + 1][coordinates[1]]);
-                    break;
+
                 }
                 case "West" -> {
                     int[] coordinates = location.getCoordinates();
                     player.setLocation(mySewer[coordinates[0] - 1][coordinates[1]]);
-                    break;
+                    ;
                 }
-                default -> System.out.println("\ninvalid\n");
+                default -> System.out.println("invalid request");
             }
+
+
         }
     }
+
+
+
+    public Sewer() {
+
+
+        Location location00 = new Location();
+        int[] coordinates00 = {0, 0};
+        Decision decision00 = new Decision();
+        decision00.add(String.valueOf(Direction.North));
+        decision00.add(String.valueOf(Direction.East));
+        decision00.add(String.valueOf(Direction.South));
+        decision00.add(String.valueOf(Direction.West));
+        location00.setCoordinates(coordinates00);
+        location00.setDecision(decision00);
+        location00.setText("This is your first room ");
+        System.out.println(player);
+        this.addLocation(location00);
+
+        /////////////////////////////////////////////////////////////////////////////////
+
+        Location location10 = new Location();
+        int[] coordinates10 = {1, 0};
+        Decision decision10 = new Decision();
+        decision10.add(String.valueOf(Direction.North));
+        decision10.add(String.valueOf(Direction.East));
+        decision10.add(String.valueOf(Direction.South));
+        decision10.add(String.valueOf(Direction.West));
+        location10.setCoordinates(coordinates10);
+        location10.setDecision(decision10);
+        location10.setText("This is your second room ");
+        this.addLocation(location10);
+
+        /////////////////////////////////////////////////////////////////////////////////
+
+        Location location01 = new Location();
+        int[] coordinates01 = {0, 1};
+        Decision decision01 = new Decision();
+        decision01.add(String.valueOf(Direction.North));
+        decision01.add(String.valueOf(Direction.East));
+        decision01.add(String.valueOf(Direction.South));
+        decision01.add(String.valueOf(Direction.West));
+        location01.setCoordinates(coordinates01);
+        location01.setDecision(decision01);
+        location01.setText("East ");
+        System.out.println(player);
+        this.addLocation(location01);
+
+        /////////////////////////////////////////////////////////////////////////////////
+
+        Location location11 = new Location();
+        int[] coordinates11 = {1, 1};
+        Decision decision11 = new Decision();
+        decision11.add(String.valueOf(Direction.North));
+        decision11.add(String.valueOf(Direction.East));
+        decision11.add(String.valueOf(Direction.South));
+        decision11.add(String.valueOf(Direction.West));
+        location11.setCoordinates(coordinates11);
+        location11.setDecision(decision11);
+        location11.setText("11 ");
+        this.addLocation(location11);
+
+        /////////////////////////////////////////////////////////////////////////////////
+
+        this.startingLocation = location00;
+    }
+
+
+
+
+
 }
