@@ -1,13 +1,28 @@
 package com.jamie;
 
-import java.awt.*;
+import java.util.Random;
+
 
 public class Player {
 
-    int health = 22;
+    int damageMin = 20;
+    int damageMax = 40;
+    int maxHealth = 100;
+    int currentHealth = maxHealth;
+
     Decision fightOption;
     Location location;
 
+    public int getDamage(){
+        Random rand = new Random();
+        int damage = rand.nextInt(damageMin, damageMax);
+        return damage;
+    }
+
+
+    public void attack(Enemy enemy) {
+        enemy.takeDamage(this);
+    }
 
     public Player() {
         Decision fightOption = new Decision();
@@ -27,6 +42,7 @@ public class Player {
     public void setFightOption(Decision decision)
     {
         this.fightOption = decision;
+
     }
 
     public Decision getFightOption()

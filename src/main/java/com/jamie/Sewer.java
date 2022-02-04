@@ -8,7 +8,6 @@ public class Sewer {
     Location startingLocation;
 
 
-
     public void setPlayer(Player player) {
         player.setLocation(this.startingLocation);
         this.player = player;
@@ -47,7 +46,7 @@ public class Sewer {
         Location location10 = new Location();
         int[] coordinates10 = {1, 0};
         Decision decision10 = new Decision();
-        Enemy enemy = new Enemy();
+        Rat rat = new Rat();
         decision10.add(String.valueOf(Direction.North));
         decision10.add(String.valueOf(Direction.South));
         decision10.add(String.valueOf(Direction.West));
@@ -55,7 +54,7 @@ public class Sewer {
         location10.setCoordinates(coordinates10);
         location10.setDecision(decision10);
         location10.setText("This is your second room ");
-        location10.setEnemy(enemy);
+        location10.setEnemy(rat);
         this.addLocation(location10);
 
 
@@ -106,7 +105,7 @@ public class Sewer {
             System.out.println(location.getText());
 
 
-         String next = readLine("You only have " + decision + " to move make a choice");
+         String next = readLine("You only have " + decision + " to move make a choice"+"\n");
             decision.select(next);
 
             switch (decision.getSelection()) {
@@ -134,7 +133,7 @@ public class Sewer {
                 }
                 case "fight" ->{
                     Enemy enemy = location.getEnemy();
-                    combatLoop(enemy);
+                    fightLoop(enemy);
                 }
 
                 default -> System.out.println("invalid request");
@@ -144,18 +143,28 @@ public class Sewer {
         }
     }
 
-    public void combatLoop(Enemy enemy)
+    public void fightLoop(Enemy enemy)
     {
-        boolean inBattle = true;
+        boolean fighting = true;
 
-        while(inBattle) {
-            Decision option = player.getFightOption();
-            String str = readLine("Your current choices are: " + option.toString() + "\nWhat will you do? ");
-            option.select(str);
-            if (option.getSelection().equals("attack")) {
+        System.out.println( "a nasty "+Enemy.enemyName+" has appeared");
+        while(fighting) {
+
+            Decision decision = player.getFightOption();
+            String str = readLine("Your current choices are: " + decision.toString() + "\nWhat will you do? ");
+            decision.select(str);
+            if (decision.getSelection().equals("attack")) {
+                enemy.printEnemyStats();
                 System.out.println("you attacked!");
-            } else if (option.getSelection().equals("run")) {
-                inBattle = false;
+                enemy.takeDamage(player);
+                if(enemy.enemyIsDead()){
+                    (fighting) = false;
+                }
+
+
+            } else if (decision.getSelection().equals("run")) {
+                System.out.println("\n"+"you little bitch"+"\n");
+                fighting = false;
             } else {
                 System.out.println("\ninvalid option\n");
             }
