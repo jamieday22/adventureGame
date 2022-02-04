@@ -5,6 +5,7 @@ public class Location  {
     Decision decision;
     int[] coordinates = new int[0];
     String text;
+    Enemy enemy;
 
     public void setText(String text)
     {
@@ -34,6 +35,16 @@ public class Location  {
     public Decision getDecision()
     {
         return this.decision;
+    }
+
+    public void setEnemy(Enemy enemy)
+    {
+        this.enemy = enemy;
+    }
+
+    public Enemy getEnemy()
+    {
+        return this.enemy;
     }
 
 }

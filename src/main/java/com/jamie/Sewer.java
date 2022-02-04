@@ -26,6 +26,73 @@ public class Sewer {
         return input.nextLine();
     }
 
+    public Sewer() {
+
+
+        Location location00 = new Location();
+        int[] coordinates00 = {0, 0};
+        Decision decision00 = new Decision();
+        decision00.add(String.valueOf(Direction.North));
+        decision00.add(String.valueOf(Direction.East));
+        decision00.add(String.valueOf(Direction.South));
+        decision00.add(String.valueOf(Direction.West));
+        location00.setCoordinates(coordinates00);
+        location00.setDecision(decision00);
+        location00.setText("This is your first room ");
+        System.out.println(player);
+        this.addLocation(location00);
+
+        /////////////////////////////////////////////////////////////////////////////////
+
+        Location location10 = new Location();
+        int[] coordinates10 = {1, 0};
+        Decision decision10 = new Decision();
+        Enemy enemy = new Enemy();
+        decision10.add(String.valueOf(Direction.North));
+        decision10.add(String.valueOf(Direction.South));
+        decision10.add(String.valueOf(Direction.West));
+        decision10.add("fight");
+        location10.setCoordinates(coordinates10);
+        location10.setDecision(decision10);
+        location10.setText("This is your second room ");
+        location10.setEnemy(enemy);
+        this.addLocation(location10);
+
+
+        /////////////////////////////////////////////////////////////////////////////////
+
+        Location location01 = new Location();
+        int[] coordinates01 = {0, 1};
+        Decision decision01 = new Decision();
+        decision01.add(String.valueOf(Direction.North));
+        decision01.add(String.valueOf(Direction.East));
+        decision01.add(String.valueOf(Direction.South));
+        decision01.add(String.valueOf(Direction.West));
+        location01.setCoordinates(coordinates01);
+        location01.setDecision(decision01);
+        location01.setText("East ");
+        System.out.println(player);
+        this.addLocation(location01);
+
+        /////////////////////////////////////////////////////////////////////////////////
+
+        Location location11 = new Location();
+        int[] coordinates11 = {1, 1};
+        Decision decision11 = new Decision();
+        decision11.add(String.valueOf(Direction.North));
+        decision11.add(String.valueOf(Direction.East));
+        decision11.add(String.valueOf(Direction.South));
+        decision11.add(String.valueOf(Direction.West));
+        location11.setCoordinates(coordinates11);
+        location11.setDecision(decision11);
+        location11.setText("11 ");
+        this.addLocation(location11);
+
+        /////////////////////////////////////////////////////////////////////////////////
+
+        this.startingLocation = location00;
+    }
+
 
     public void loop() {
 
@@ -65,6 +132,11 @@ public class Sewer {
                     player.setLocation(mySewer[coordinates[0] - 1][coordinates[1]]);
                     ;
                 }
+                case "fight" ->{
+                    Enemy enemy = location.getEnemy();
+                    combatLoop(enemy);
+                }
+
                 default -> System.out.println("invalid request");
             }
 
@@ -72,74 +144,23 @@ public class Sewer {
         }
     }
 
+    public void combatLoop(Enemy enemy)
+    {
+        boolean inBattle = true;
 
+        while(inBattle) {
+            Decision option = player.getFightOption();
+            String str = readLine("Your current choices are: " + option.toString() + "\nWhat will you do? ");
+            option.select(str);
+            if (option.getSelection().equals("attack")) {
+                System.out.println("you attacked!");
+            } else if (option.getSelection().equals("run")) {
+                inBattle = false;
+            } else {
+                System.out.println("\ninvalid option\n");
+            }
 
-    public Sewer() {
-
-
-        Location location00 = new Location();
-        int[] coordinates00 = {0, 0};
-        Decision decision00 = new Decision();
-        decision00.add(String.valueOf(Direction.North));
-        decision00.add(String.valueOf(Direction.East));
-        decision00.add(String.valueOf(Direction.South));
-        decision00.add(String.valueOf(Direction.West));
-        location00.setCoordinates(coordinates00);
-        location00.setDecision(decision00);
-        location00.setText("This is your first room ");
-        System.out.println(player);
-        this.addLocation(location00);
-
-        /////////////////////////////////////////////////////////////////////////////////
-
-        Location location10 = new Location();
-        int[] coordinates10 = {1, 0};
-        Decision decision10 = new Decision();
-        decision10.add(String.valueOf(Direction.North));
-        decision10.add(String.valueOf(Direction.East));
-        decision10.add(String.valueOf(Direction.South));
-        decision10.add(String.valueOf(Direction.West));
-        location10.setCoordinates(coordinates10);
-        location10.setDecision(decision10);
-        location10.setText("This is your second room ");
-        this.addLocation(location10);
-
-        /////////////////////////////////////////////////////////////////////////////////
-
-        Location location01 = new Location();
-        int[] coordinates01 = {0, 1};
-        Decision decision01 = new Decision();
-        decision01.add(String.valueOf(Direction.North));
-        decision01.add(String.valueOf(Direction.East));
-        decision01.add(String.valueOf(Direction.South));
-        decision01.add(String.valueOf(Direction.West));
-        location01.setCoordinates(coordinates01);
-        location01.setDecision(decision01);
-        location01.setText("East ");
-        System.out.println(player);
-        this.addLocation(location01);
-
-        /////////////////////////////////////////////////////////////////////////////////
-
-        Location location11 = new Location();
-        int[] coordinates11 = {1, 1};
-        Decision decision11 = new Decision();
-        decision11.add(String.valueOf(Direction.North));
-        decision11.add(String.valueOf(Direction.East));
-        decision11.add(String.valueOf(Direction.South));
-        decision11.add(String.valueOf(Direction.West));
-        location11.setCoordinates(coordinates11);
-        location11.setDecision(decision11);
-        location11.setText("11 ");
-        this.addLocation(location11);
-
-        /////////////////////////////////////////////////////////////////////////////////
-
-        this.startingLocation = location00;
+        }
     }
-
-
-
-
-
 }
+
