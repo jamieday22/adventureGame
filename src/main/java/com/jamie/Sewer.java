@@ -1,4 +1,5 @@
 package com.jamie;
+import java.util.Scanner;
 
 public class Sewer {
 
@@ -21,6 +22,16 @@ public class Sewer {
         location00.setText("This is your first room ");
         this.addLocation(location00);
 
+        Location location01 = new Location();
+        int[] coordinates01 = {0,0};
+        Decision decision01 = new Decision();
+        decision01.add(String.valueOf(Direction.South));
+        decision01.add(String.valueOf(Direction.East));
+        location01.setCoordinates(coordinates01);
+        location01.setDecision(decision01);
+        location01.setText("This is your second room ");
+        this.addLocation(location00);
+
 
 
         this.startingLocation = location00;
@@ -38,10 +49,10 @@ public class Sewer {
         mySewer[coordinates[0]][coordinates[1]] = location;
     }
 
-    
+
     @SuppressWarnings("InfiniteLoopStatement")
     public void loop() {
-        boolean playing = true;
+
 
 
         while (true) {
@@ -53,27 +64,28 @@ public class Sewer {
 
             System.out.println(location.getText());
 
-
-            switch (decision.getSelection()) {
+            Scanner inputRead = new Scanner(System.in);
+            switch ((inputRead.next())+ decision.getSelection()) {
                 case "North" -> {
                     int[] coordinates = location.getCoordinates();
                     player.setLocation(mySewer[coordinates[0]][coordinates[1] + 1]);
-
+                    break;
                 }
+
                 case "South" -> {
                     int[] coordinates = location.getCoordinates();
                     player.setLocation(mySewer[coordinates[0]][coordinates[1] - 1]);
-
+                    break;
                 }
                 case "East" -> {
                     int[] coordinates = location.getCoordinates();
                     player.setLocation(mySewer[coordinates[0] + 1][coordinates[1]]);
-
+                    break;
                 }
                 case "West" -> {
                     int[] coordinates = location.getCoordinates();
                     player.setLocation(mySewer[coordinates[0] - 1][coordinates[1]]);
-
+                    break;
                 }
                 default -> System.out.println("\ninvalid\n");
             }

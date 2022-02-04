@@ -1,5 +1,7 @@
 package com.jamie;
 
+import java.awt.*;
+
 public class Player {
 
     Location location;
@@ -12,8 +14,14 @@ public class Player {
         return this.location;
     }
 
+    public void moveNorth() {
 
 
 
+    }
 
-}
+
+    }
+
+
+
